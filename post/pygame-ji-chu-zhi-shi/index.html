@@ -17,6 +17,7 @@
   <meta name="description" content="Pygame 基础知识
 
 1. 安装Pygame库
+ 
 
 
 pygame是一个Python模块，专为电子游戏设计
@@ -32,12 +33,12 @@ pygame是一个Python模块，专为电子游戏设计
 
 
 
-GettingStarted
-在..." />
+GettingStarted..." />
   <meta property="og:title" content="pygame基础知识 - li_quancai">
   <meta property="og:description" content="Pygame 基础知识
 
 1. 安装Pygame库
+ 
 
 
 pygame是一个Python模块，专为电子游戏设计
@@ -53,8 +54,7 @@ pygame是一个Python模块，专为电子游戏设计
 
 
 
-GettingStarted
-在..." />
+GettingStarted..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://liquancai-code.github.io/post/pygame-ji-chu-zhi-shi/" />
   <meta property="og:image" content="https://liquancai-code.github.io/images/avatar.png">
@@ -64,6 +64,7 @@ GettingStarted
   <meta name="twitter:description" content="Pygame 基础知识
 
 1. 安装Pygame库
+ 
 
 
 pygame是一个Python模块，专为电子游戏设计
@@ -79,8 +80,7 @@ pygame是一个Python模块，专为电子游戏设计
 
 
 
-GettingStarted
-在...">
+GettingStarted...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://liquancai-code.github.io/post/pygame-ji-chu-zhi-shi/">
 
@@ -115,6 +115,7 @@ GettingStarted
           <h1 id="pygame-基础知识">Pygame 基础知识</h1>
 <hr>
 <h3 id="1-安装pygame库">1. 安装Pygame库</h3>
+<p> </p>
 <ul>
 <li>
 <p><code>pygame</code>是一个Python模块，专为电子游戏设计</p>
@@ -151,9 +152,11 @@ GettingStarted
 </ul>
 </li>
 </ul>
+<p> </p>
 <h3 id="2-pygame的模块">2.  Pygame的模块</h3>
-<p>​		<code>Pygame</code>有大量的可以独立使用的模块。对于计算机的的常用设备，都有对应的模块进行控制。如下表所示：</p>
-<p>​																				           Pygame软件包中的模块</p>
+<p> </p>
+<p>​  <code>Pygame</code>有大量的可以独立使用的模块。对于计算机的的常用设备，都有对应的模块进行控制。如下表所示：</p>
+<p>​																				 Pygame软件包中的模块</p>
 <table>
 <thead>
 <tr>
@@ -252,30 +255,34 @@ GettingStarted
 </tr>
 </tbody>
 </table>
-<p>建立 <code>Pyagme</code> 项目和建立其他 <code>Python</code> 项目一样，在IDLE或文本编辑器中新建一个空文档，需要告诉 <code>Python</code>  该程序用到了 <code>Pygame</code> 模块。</p>
-<p>为了实现此目的，需要用 <code>import</code> 指令告诉 <code>Python</code> 载入外部模块。如下：</p>
+<p>  建立 <code>Pyagme</code> 项目和建立其他 <code>Python</code> 项目一样，在IDLE或文本编辑器中新建一个空文档，需要告诉 <code>Python</code>  该程序用到了 <code>Pygame</code> 模块。</p>
+<p>  为了实现此目的，需要用 <code>import</code> 指令告诉 <code>Python</code> 载入外部模块。如下：</p>
 <pre><code class="language-python">import pygame, sys, time, random
 from pygame.locals import * 
 </code></pre>
-<p>第1行引入 <code>pygame</code> 的主要模块 、<code>sys</code> 模块 、<code>time</code> 模块 、<code>random</code> 模块</p>
-<p>第2行告诉 <code>python</code> 载入 <code>pygame.locals</code> 的所有指令使它们成为原生指令，这样在使用这些指令时就不需要使用全名调用。</p>
-<p>由于硬件和游戏的兼容性或者请求的驱动没有安装的问题，有些模块可能在某些平台上不存在，可以使用 <code>None</code> 调试一下。例如测试字体是否载入：</p>
+<p>  第1行引入 <code>pygame</code> 的主要模块 、<code>sys</code> 模块 、<code>time</code> 模块 、<code>random</code> 模块</p>
+<p>  第2行告诉 <code>python</code> 载入 <code>pygame.locals</code> 的所有指令使它们成为原生指令，这样在使用这些指令时就不需要使用全名调用。</p>
+<p>  由于硬件和游戏的兼容性或者请求的驱动没有安装的问题，有些模块可能在某些平台上不存在，可以使用 <code>None</code> 调试一下。例如测试字体是否载入：</p>
 <pre><code class="language-python">if pygame.font is None:
     print(&quot;The font module is not available!&quot;)
     pygame.quit()												# 如果没有则退出pygame的应用环境
 </code></pre>
+<p> </p>
 <h3 id="3-常用模块简要说明">3.  常用模块简要说明</h3>
-<p><strong>1. pygame.surface</strong></p>
-<p>该模块中有一个 <code>surface()</code> 函数，<code>surface()</code> 的一般格式如下：</p>
+<p> <br>
+<strong>1. pygame.surface</strong></p>
+<p>  该模块中有一个 <code>surface()</code> 函数，<code>surface()</code> 的一般格式如下：</p>
 <pre><code class="language-python">pygame.surface((width, height), flags=0, depth=0, masks=None)
 </code></pre>
 <p>它返回一个新的 <code>surface</code> 对象，这里的 <code>surface</code> 对象是一个有确定尺寸的空图像，可以用它进行图像的绘制与移动。</p>
-<p><strong>2. pygame.locals</strong></p>
-<p>在 <code>pygame.locals</code> 模块中定义了 <code>pygame</code> 环境中用到的各种常量，而且包括事件类型 、按键和视频模式等的名字，在导入所有内容（ <code>from pygame.locals import *</code> ） 时用起来很安全。</p>
-<p>如果用户知道需要的内容，也可以导入具体的内容（例如  <code>form pygame.locals import FULLSCREEN</code> ）。</p>
-<p><strong>3.  pygame.display</strong></p>
-<p><code>pygame.display</code> 模块包括处理 <code>pygame</code> 显示方式的函数，其中包括普通窗口和全屏模式。</p>
-<p>游戏程序通常需要下面的函数：</p>
+<p> <br>
+<strong>2. pygame.locals</strong></p>
+<p>  在 <code>pygame.locals</code> 模块中定义了 <code>pygame</code> 环境中用到的各种常量，而且包括事件类型 、按键和视频模式等的名字，在导入所有内容（ <code>from pygame.locals import *</code> ） 时用起来很安全。</p>
+<p>  如果用户知道需要的内容，也可以导入具体的内容（例如  <code>form pygame.locals import FULLSCREEN</code> ）。</p>
+<p> <br>
+<strong>3.  pygame.display</strong></p>
+<p>  <code>pygame.display</code> 模块包括处理 <code>pygame</code> 显示方式的函数，其中包括普通窗口和全屏模式。</p>
+<p>  游戏程序通常需要下面的函数：</p>
 <ol>
 <li>
 <p><code>flip() / update()</code></p>
@@ -286,7 +293,9 @@ from pygame.locals import *
 </li>
 <li>
 <p><code>set_mode</code></p>
-<p>​			该函数建立游戏窗口，返回 <code>surface</code> 对象。它有3个参数，第1个参数是元组，用于指定窗口的尺寸；第2个参数是标志位，具体含义如下表所示，例如 <code>FULLSCREEN</code> 表示全屏，默认值为不对窗口进行设置，可根据需要选用；第3个参数为色深，用于指定窗口的色彩位数。</p>
+</li>
+</ol>
+<p>  该函数建立游戏窗口，返回 <code>surface</code> 对象。它有3个参数，第1个参数是元组，用于指定窗口的尺寸；第2个参数是标志位，具体含义如下表所示，例如 <code>FULLSCREEN</code> 表示全屏，默认值为不对窗口进行设置，可根据需要选用；第3个参数为色深，用于指定窗口的色彩位数。</p>
 <p>​																		<code>set_mode</code> 的窗口标志位的参考取值</p>
 <table>
 <thead>
@@ -322,30 +331,36 @@ from pygame.locals import *
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p><code>set_caption()</code></p>
-<p>​			该函数设定游戏程序的标题。当游戏以窗口模式（对应于全屏）运行时尤其有用，因为该标题会作为窗口的标题。</p>
-</li>
+<ol start="3">
+<li><code>set_caption()</code></li>
+</ol>
+<p>  该函数设定游戏程序的标题。当游戏以窗口模式（对应于全屏）运行时尤其有用，因为该标题会作为窗口的标题。</p>
+<ol start="4">
 <li>
 <p><code>get_surface()</code></p>
-<p>​			该函数返回一个可用来画图的 <code>surface</code> 对象。</p>
+<p>  该函数返回一个可用来画图的 <code>surface</code> 对象。</p>
 </li>
 </ol>
-<p><strong>4.  pygame.font</strong></p>
-<p><code>pygame.font</code> 模块用于表现不同字体，可以用于文本。</p>
-<p><strong>5.  pygame.sprite</strong></p>
-<p><code>pygame.sprite</code> 模块有两个非常重要的类—— <code>sprite</code> 精灵类和 <code>Group</code> 精灵组类。</p>
-<p><code>sprite</code> 精灵类是所有可视游戏的基类。为了实现自己的游戏对象，需要子类化 <code>sprite</code> ，覆盖它的构造函数，以设定 <code>image</code> 和 <code>rect</code> 属性（决定 <code>sprite</code> 的外观和放置的位置），再覆盖 <code>update()</code> 方法。在<code>sprite</code> 需要更新的时候可以调用 <code>update()</code> 方法。</p>
-<p><code>Group</code> 精灵组类的实例作为 <code>sprite</code> 精灵对象的容器。在一些简单的游戏中，只要创建名为：<code>sprites</code>，<code>allsprite</code> 或是其他类型的组，然后将所有 <code>sprite</code> 精灵对象添加到上面即可。当 <code>Group</code> 精灵组对象的 <code>update()</code> 方法被调用时会自动调用所有 <code>sprite</code> 精灵对象的 <code>update()</code> 方法。<code>Group</code> 精灵组对象的 <code>clear()</code> 方法用于清理它包含的所有 <code>sprite</code> 对象。<code>Group</code>  精灵组对象的 <code>draw()</code> 方法用于绘制所有的 <code>sprite</code> 对象。</p>
-<p><strong>6.  pygame.mouse</strong></p>
-<p>该模块用来管理鼠标</p>
-<p><code>pygame.mouse.set_visible(False/True)</code> ：隐藏显示鼠标光标。<br>
-<code>pygame.mouse.get_pos()</code> ：获取鼠标位置。</p>
-<p><strong>7.  pygame.event</strong></p>
-<p><code>pygame.event</code> 模块会追踪鼠标单击 、鼠标移动 、按键按下和释放等事件。其中 <code>pygame.event.get()</code> 可以获取最近事件列表。</p>
-<p><strong>8.  pygame.image</strong></p>
-<p>这个模块用于处理保存在 GIF 、PNG 或者 JPEG 内的图形，用户可以用 <code>load()</code> 函数来读取图像文件。</p>
+<p> <br>
+<strong>4.  pygame.font</strong></p>
+<p>  <code>pygame.font</code> 模块用于表现不同字体，可以用于文本。</p>
+<p> <br>
+<strong>5.  pygame.sprite</strong></p>
+<p>  <code>pygame.sprite</code> 模块有两个非常重要的类—— <code>sprite</code> 精灵类和 <code>Group</code> 精灵组类。</p>
+<p>  <code>sprite</code> 精灵类是所有可视游戏的基类。为了实现自己的游戏对象，需要子类化 <code>sprite</code> ，覆盖它的构造函数，以设定 <code>image</code> 和 <code>rect</code> 属性（决定 <code>sprite</code> 的外观和放置的位置），再覆盖 <code>update()</code> 方法。在<code>sprite</code> 需要更新的时候可以调用 <code>update()</code> 方法。</p>
+<p>  <code>Group</code> 精灵组类的实例作为 <code>sprite</code> 精灵对象的容器。在一些简单的游戏中，只要创建名为：<code>sprites</code>，<code>allsprite</code> 或是其他类型的组，然后将所有 <code>sprite</code> 精灵对象添加到上面即可。当 <code>Group</code> 精灵组对象的 <code>update()</code> 方法被调用时会自动调用所有 <code>sprite</code> 精灵对象的 <code>update()</code> 方法。<code>Group</code> 精灵组对象的 <code>clear()</code> 方法用于清理它包含的所有 <code>sprite</code> 对象。<code>Group</code>  精灵组对象的 <code>draw()</code> 方法用于绘制所有的 <code>sprite</code> 对象。</p>
+<p> <br>
+<strong>6.  pygame.mouse</strong></p>
+<p>  该模块用来管理鼠标<br>
+  <code>pygame.mouse.set_visible(False/True)</code> ：隐藏显示鼠标光标。<br>
+  <code>pygame.mouse.get_pos()</code> ：获取鼠标位置。</p>
+<p> <br>
+<strong>7.  pygame.event</strong></p>
+<p>  <code>pygame.event</code> 模块会追踪鼠标单击 、鼠标移动 、按键按下和释放等事件。其中<br>
+  <code>pygame.event.get()</code> 可以获取最近事件列表。</p>
+<p> <br>
+<strong>8.  pygame.image</strong></p>
+<p>  这个模块用于处理保存在 GIF 、PNG 或者 JPEG 内的图形，用户可以用 <code>load()</code> 函数来读取图像文件。</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
