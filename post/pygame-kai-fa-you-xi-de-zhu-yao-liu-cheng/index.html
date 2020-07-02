@@ -1,0 +1,331 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>pygame开发游戏的主要流程 - li_quancai</title>
+<link rel="shortcut icon" href="https://liquancai-code.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://liquancai-code.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://liquancai-code.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="pygame开发游戏的主要流程 - li_quancai - Atom Feed" href="https://liquancai-code.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="pygame开发游戏的主要流程
+pygame开发游戏的基础是创建游戏窗口，核心是处理事件、更新游戏状态和在屏幕上绘制图形。游戏状态可以理解为程序中所有变量值的列表。在有些游戏中，游戏状态包括存放人物健康个位置的变量、物体或图形位置的变化，这..." />
+  <meta property="og:title" content="pygame开发游戏的主要流程 - li_quancai">
+  <meta property="og:description" content="pygame开发游戏的主要流程
+pygame开发游戏的基础是创建游戏窗口，核心是处理事件、更新游戏状态和在屏幕上绘制图形。游戏状态可以理解为程序中所有变量值的列表。在有些游戏中，游戏状态包括存放人物健康个位置的变量、物体或图形位置的变化，这..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://liquancai-code.github.io/post/pygame-kai-fa-you-xi-de-zhu-yao-liu-cheng/" />
+  <meta property="og:image" content="https://liquancai-code.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="pygame开发游戏的主要流程 - li_quancai">
+  <meta name="twitter:description" content="pygame开发游戏的主要流程
+pygame开发游戏的基础是创建游戏窗口，核心是处理事件、更新游戏状态和在屏幕上绘制图形。游戏状态可以理解为程序中所有变量值的列表。在有些游戏中，游戏状态包括存放人物健康个位置的变量、物体或图形位置的变化，这...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://liquancai-code.github.io/post/pygame-kai-fa-you-xi-de-zhu-yao-liu-cheng/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://liquancai-code.github.io/media/css/prism-github.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://liquancai-code.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      li_quancai
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          pygame开发游戏的主要流程
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-07-02 · 2 min read</div>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <h1 id="pygame开发游戏的主要流程">pygame开发游戏的主要流程</h1>
+<p>pygame开发游戏的基础是创建游戏窗口，核心是处理事件、更新游戏状态和在屏幕上绘制图形。游戏状态可以理解为程序中所有变量值的列表。在有些游戏中，游戏状态包括存放人物健康个位置的变量、物体或图形位置的变化，这些值可以在屏幕上表示。</p>
+<p>物体或图形位置的变化只有通过在屏幕上绘图才可以看出来。</p>
+<p>可以简单的抽象出pygame开发游戏的主要流程如下：</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/liquancai/blog_images/raw/master/img/image-20200702225938129.png" alt="image-20200702225938129" loading="lazy"></figure>
+<p>下面举一个具体例子来说明：</p>
+<p>使用 pygame 开发一个显示 “Hello World!”标题的窗口</p>
+<pre><code class="language-python">import pygame
+
+def hello_world():
+    pygame.init()
+    pygame.display.set_mode((400, 600))
+    pygame.display.set_caption(&quot;Hello World!&quot;)
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+        pygame.display.update()
+
+
+if __name__ == '__main__':
+    hello_world()
+</code></pre>
+<p>运行后仅见到黑色的游戏窗口，标题是“Hello World!”，如下所示：</p>
+<img src="https://gitee.com/liquancai/blog_images/raw/master/img/image-20200702231051363.png" alt="image-20200702231051363" style="zoom:50%;" />
+<p>在导入pygame模块后，任何pygame游戏程序均需要执行 <code>pygame.init()</code> 语句进行模块的初始化，它必须在进入游戏的无限循环之前被调用。这个函数会自动初始化其他所有模块（例如 pygame.font  和 pygame.image），通过它载入驱动和硬件请求，这样游戏程序才可以使用计算机上的所有设备，比较费时间。如果只使用少量的模块，应该分别初始化这些模块以节省时间，例如 pygame.sound.init() 仅仅初始化声音模块。</p>
+<p>该代码中有个无限循环，每个 pygame 程序都需要它，在无限循环中可以做以下操作。</p>
+<ol>
+<li>处理事件：例如鼠标 、键盘 、关闭窗口等事件。</li>
+<li>更新游戏状态：例如坦克的位置变化 、数量变化等。</li>
+<li>在屏幕上绘图：例如绘制新的敌方坦克等。</li>
+</ol>
+<p>不断重复上面3个步骤，从而完成游戏逻辑。</p>
+<p>在本例代码中仅仅处理关闭窗口事件，也就是玩家关闭窗口时 <code>pyagme.quit()</code> 退出游戏。</p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#pygame%E5%BC%80%E5%8F%91%E6%B8%B8%E6%88%8F%E7%9A%84%E4%B8%BB%E8%A6%81%E6%B5%81%E7%A8%8B">pygame开发游戏的主要流程</a></li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://liquancai-code.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://liquancai-code.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+  
+    
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: 'c9a70230ebc06688864d',
+    clientSecret: 'fafe75a22c04457e6512243145be2764632f161d',
+    repo: 'liquancai-code.github.io',
+    owner: 'liquancai-code',
+    admin: ['liquancai-code'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+    
+  
+</body>
+
+</html>

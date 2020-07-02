@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liquancai-code.github.io</id>
     <title>li_quancai</title>
-    <updated>2020-07-01T10:29:28.866Z</updated>
+    <updated>2020-07-02T15:28:06.316Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liquancai-code.github.io"/>
     <link rel="self" href="https://liquancai-code.github.io/atom.xml"/>
@@ -10,6 +10,49 @@
     <logo>https://liquancai-code.github.io/images/avatar.png</logo>
     <icon>https://liquancai-code.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, li_quancai</rights>
+    <entry>
+        <title type="html"><![CDATA[pygame开发游戏的主要流程]]></title>
+        <id>https://liquancai-code.github.io/post/pygame-kai-fa-you-xi-de-zhu-yao-liu-cheng/</id>
+        <link href="https://liquancai-code.github.io/post/pygame-kai-fa-you-xi-de-zhu-yao-liu-cheng/">
+        </link>
+        <updated>2020-07-02T15:27:34.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="pygame开发游戏的主要流程">pygame开发游戏的主要流程</h1>
+<p>pygame开发游戏的基础是创建游戏窗口，核心是处理事件、更新游戏状态和在屏幕上绘制图形。游戏状态可以理解为程序中所有变量值的列表。在有些游戏中，游戏状态包括存放人物健康个位置的变量、物体或图形位置的变化，这些值可以在屏幕上表示。</p>
+<p>物体或图形位置的变化只有通过在屏幕上绘图才可以看出来。</p>
+<p>可以简单的抽象出pygame开发游戏的主要流程如下：</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/liquancai/blog_images/raw/master/img/image-20200702225938129.png" alt="image-20200702225938129" loading="lazy"></figure>
+<p>下面举一个具体例子来说明：</p>
+<p>使用 pygame 开发一个显示 “Hello World!”标题的窗口</p>
+<pre><code class="language-python">import pygame
+
+def hello_world():
+    pygame.init()
+    pygame.display.set_mode((400, 600))
+    pygame.display.set_caption(&quot;Hello World!&quot;)
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+        pygame.display.update()
+
+
+if __name__ == '__main__':
+    hello_world()
+</code></pre>
+<p>运行后仅见到黑色的游戏窗口，标题是“Hello World!”，如下所示：</p>
+<img src="https://gitee.com/liquancai/blog_images/raw/master/img/image-20200702231051363.png" alt="image-20200702231051363" style="zoom:50%;" />
+<p>在导入pygame模块后，任何pygame游戏程序均需要执行 <code>pygame.init()</code> 语句进行模块的初始化，它必须在进入游戏的无限循环之前被调用。这个函数会自动初始化其他所有模块（例如 pygame.font  和 pygame.image），通过它载入驱动和硬件请求，这样游戏程序才可以使用计算机上的所有设备，比较费时间。如果只使用少量的模块，应该分别初始化这些模块以节省时间，例如 pygame.sound.init() 仅仅初始化声音模块。</p>
+<p>该代码中有个无限循环，每个 pygame 程序都需要它，在无限循环中可以做以下操作。</p>
+<ol>
+<li>处理事件：例如鼠标 、键盘 、关闭窗口等事件。</li>
+<li>更新游戏状态：例如坦克的位置变化 、数量变化等。</li>
+<li>在屏幕上绘图：例如绘制新的敌方坦克等。</li>
+</ol>
+<p>不断重复上面3个步骤，从而完成游戏逻辑。</p>
+<p>在本例代码中仅仅处理关闭窗口事件，也就是玩家关闭窗口时 <code>pyagme.quit()</code> 退出游戏。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[pygame基础知识]]></title>
         <id>https://liquancai-code.github.io/post/pygame-ji-chu-zhi-shi/</id>
