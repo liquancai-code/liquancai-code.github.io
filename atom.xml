@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liquancai-code.github.io</id>
     <title>li_quancai</title>
-    <updated>2020-07-02T15:29:25.971Z</updated>
+    <updated>2020-07-03T12:10:47.383Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liquancai-code.github.io"/>
     <link rel="self" href="https://liquancai-code.github.io/atom.xml"/>
@@ -10,6 +10,145 @@
     <logo>https://liquancai-code.github.io/images/avatar.png</logo>
     <icon>https://liquancai-code.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, li_quancai</rights>
+    <entry>
+        <title type="html"><![CDATA[pyagme 图像/图形绘制]]></title>
+        <id>https://liquancai-code.github.io/post/pyagme-tu-xiang-tu-xing-hui-zhi/</id>
+        <link href="https://liquancai-code.github.io/post/pyagme-tu-xiang-tu-xing-hui-zhi/">
+        </link>
+        <updated>2020-07-03T12:09:51.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="pygame-图像-图形绘制">pygame 图像 / 图形绘制</h1>
+<h2 id="1-pygame-的图像绘制">1. pygame 的图像绘制</h2>
+<p>pygame 支持多种存储图像的方式（也就是图片格式），例如 JPEG、PNG 等，具体支持 JPEG （一般扩展名为 .jpg 或者 .jpeg ，数码相机、网上的图片基本上都是这种格式，这是一种有损压缩方式，尽管对图片的质量有所损坏，但对于减小文件尺寸很有帮助，其优点很多，只是不支持透明）、PNG（支持透明，无损压缩）、GIF（网上使用得很多，支持透明和动画，但只能有 256 种颜色，在软件和游戏中的使用很少）以及 BMP、PCX、TGA、TIF 等格式。</p>
+<p>pygame 使用 surface 对象来加载绘制的图像。对于 pygame ,加载图片使用 pygame.image.load(), 给它一个文件名然后返回一个 surface 对象。尽管载入的图像格式不同，但 surface 对象隐藏了这些不同。用户可以对一个 surface 对象进行涂画、变形、复制等各种操作。事实上游戏屏幕也只是一个 surface,  <code>pygame.display.set_mode()</code> 返回了一个 surface 对象。</p>
+<p>对于任何一个 surface 对象，可以用 get_width() 、get_height() 和 get_size() 函数来获取它的尺寸，get_rect() 用来获取它的区域形状。</p>
+<p>例：使用 pygame 开发一个显示坦克自由移动的游戏窗口</p>
+<pre><code class="language-python">import pygame
+
+
+def tank():
+    
+    pygame.init()
+    tank_image = pygame.image.load(&quot;tank.png&quot;)
+    tank_rect = tank_image.get_rect()
+    screen = pygame.display.set_mode((400, 600))
+    pygame.dispaly.set_caption(&quot;自由移动的tank&quot;)
+    screen_rect = screen.get_rect()
+    color_back = (255, 255, 255)
+    tank_speed = [1, 1]
+    fps_clock = pygame.time.Clock()
+    
+    while True:
+        fps_clock.tick(60)
+        for event in pygame.event.get():
+            if evnet.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+		tank_rect = tank_rect.move(tank_speed)
+        if tank_rect.left &lt; 0 or tank_rect.right &gt; screen_rect.right:
+            tank_speed[0] = -tank_speed[0]
+        if tank_rect.top &lt; 0 or tank_rect.bottom &gt; screen_rect.bottom:
+            tank_speed[1] = tank_speed[1]
+        screen.fill(color_back)
+        screen.blit(tank_image, tank_rect)
+        pygame.display.update()
+      
+
+if __name__ == '__main__':
+    tank()
+</code></pre>
+<p>程序运行后，可以看到白色背景的游戏窗口，标题是“自由移动的 tank ”，如下图所示：</p>
+<img src="https://gitee.com/liquancai/blog_images/raw/master/img/image-20200703192037735.png" alt="image-20200703192037735" style="zoom:50%;" />
+<p>在该游戏中通过修改塔克图像（ surface 对象）区域的 left 属性（可以认为是 x 座标）、 surface 对象的 top 属性（可以认为是 y 属性）改变坦克位置，从而显示出坦克自由移动的效果。在窗口（窗口也是 surface 对象）使用的 <code>blit()</code> 函数上绘制坦克图像，最后注意需要更新窗口显示内容。</p>
+<p>设置 fps_clock 变量的值即可控制创建刷新速度，语法如下：</p>
+<pre><code class="language-python">fps_clock = pygame.time.Clock()
+</code></pre>
+<p>在无限循环中写入 <code>fps_clock.tick(60)</code> ，可以按指定帧频 60 更新游戏画面（即每秒刷新 60 次屏幕）。</p>
+<hr>
+<h2 id="2pygame-的图形绘制">2.pygame 的图形绘制</h2>
+<p>在屏幕上绘制各种图形时使用 pygame.draw 模块中的一些函数，事实上，pygame 可以不加载任何图片，而使用图形来制作一个游戏。</p>
+<p>pygame.draw 中的函数的第 1 个参数总是一个 sueface , 然后是颜色，接着是一系列的座标等。对于计算机中的座标，（0，0）代表左上角，水平向右为 X 轴的正方向，垂直向下为 Y 轴的正方向。该函数的返回值是一个 rect 对象，包含了绘制的区域，这样就可以很方便的更新那一部分了。pygame.draw 中的函数如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rect()</td>
+<td>绘制矩形</td>
+<td>line()</td>
+<td>绘制线</td>
+</tr>
+<tr>
+<td>polygon()</td>
+<td>绘制多边形（3个及3个以上的边）</td>
+<td>lines()</td>
+<td>绘制一系列的线</td>
+</tr>
+<tr>
+<td>circle()</td>
+<td>绘制圆</td>
+<td>aaline()</td>
+<td>绘制一根平滑的线</td>
+</tr>
+<tr>
+<td>ellipse()</td>
+<td>绘制椭圆</td>
+<td>aalines()</td>
+<td>绘制一系列平滑的线</td>
+</tr>
+<tr>
+<td>arc()</td>
+<td>绘制圆弧</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>下面详细说明 pygame.draw 中各个函数的使用。</p>
+<ol>
+<li>
+<p><strong>pygame.draw.rect()</strong></p>
+<p>格式：pygame.draw.rect(surface, color, rect, width=0)</p>
+<p>pygame.draw.rect() 在 surface 上画一个矩形，除了 surface 和 color 以外，rect 接收一个矩形的座标和线宽参数，如果线宽是 0 或省略，则填充。</p>
+</li>
+<li>
+<p><strong>pygame.draw.polygon()</strong></p>
+<p>格式：pygame.draw.polygon(surface, color, pointlist, width=0)</p>
+<p>polygon() 用于画多边形，其用法类似于 rect(), 与 rect() 第1、第2、第 4 个参数都是相同的，只不过 polygon()会接收一系列座标的列表，代表了各个顶点的座标。</p>
+</li>
+<li>
+<p><strong>pygame.draw.circle()</strong></p>
+<p>格式：pygame.draw.circle(surface, color, pos, radius, width=0)</p>
+<p>circle() 用于画一个圆，它接收一个圆心座标和一个半径参数。</p>
+</li>
+<li>
+<p><strong>pygame.draw.ellipse()</strong></p>
+<p>格式：pygame.draw.ellipse(surface, color, rect, width=0)</p>
+<p>用户可以把 ellipse 想象成一个被压扁的圆，事实上，它可以被一个矩形装起来。ellipse() 的第 3 个参数就是这个椭圆的外接矩形。</p>
+</li>
+<li>
+<p><strong>pygame.draw.arc()</strong></p>
+<p>格式：pygame.draw.arc(surface, color, rect, start_angle, stop_angle, width=1)</p>
+<p>arc() 是椭圆的一部分，所以它的参数比椭圆多一些。但它不是封闭的，因此没有 <code>fill()</code> 方法，start_angle 和 stop_angle 为开始和结束的角度。</p>
+</li>
+<li>
+<p><strong>pygame.draw.line()</strong></p>
+<p>格式：pygame.draw.line(surface, color, start_pos, end_pos, width=1)</p>
+<p>line() 用于画一条线段，start_pos 和 end_pos 是线段的起点和结点座标。</p>
+</li>
+<li>
+<p><strong>pygame.draw.lines()</strong></p>
+<p>格式：pygame.draw.lines(surface, color, closed, pointlist, width=1)</p>
+<p>closed 是一个布尔变量，指明是否需要多画一条线来使这些线条闭合（这样就和 polygon() 一样了），pointlist 是一个顶点座标的数组。</p>
+</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[pygame开发游戏的主要流程]]></title>
         <id>https://liquancai-code.github.io/post/pygame-kai-fa-you-xi-de-zhu-yao-liu-cheng/</id>
