@@ -1,0 +1,381 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>pygame  的字体使用 - li_quancai</title>
+<link rel="shortcut icon" href="https://liquancai-code.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://liquancai-code.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://liquancai-code.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="pygame  的字体使用 - li_quancai - Atom Feed" href="https://liquancai-code.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="pygame 的字体使用
+pygame 可以直接调用系统字体，也可以调用 TTF 字体。为了使用字体，应该首先创建一个 Font 对象（不要忘记初始化 pygame），对于系统自带的字体应该这样调用：
+font1 = pygame.font..." />
+  <meta property="og:title" content="pygame  的字体使用 - li_quancai">
+  <meta property="og:description" content="pygame 的字体使用
+pygame 可以直接调用系统字体，也可以调用 TTF 字体。为了使用字体，应该首先创建一个 Font 对象（不要忘记初始化 pygame），对于系统自带的字体应该这样调用：
+font1 = pygame.font..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://liquancai-code.github.io/post/pygame-de-zi-ti-shi-yong/" />
+  <meta property="og:image" content="https://liquancai-code.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="pygame  的字体使用 - li_quancai">
+  <meta name="twitter:description" content="pygame 的字体使用
+pygame 可以直接调用系统字体，也可以调用 TTF 字体。为了使用字体，应该首先创建一个 Font 对象（不要忘记初始化 pygame），对于系统自带的字体应该这样调用：
+font1 = pygame.font...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://liquancai-code.github.io/post/pygame-de-zi-ti-shi-yong/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://liquancai-code.github.io/media/css/prism-github.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://liquancai-code.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      li_quancai
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          pygame  的字体使用
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-07-04 · 4 min read</div>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <h1 id="pygame-的字体使用">pygame 的字体使用</h1>
+<p>pygame 可以直接调用系统字体，也可以调用 TTF 字体。为了使用字体，应该首先创建一个 Font 对象（不要忘记初始化 pygame），对于系统自带的字体应该这样调用：</p>
+<pre><code class="language-python">font1 = pygame.font.SysFont('arial', 16)
+</code></pre>
+<p>第1个参数是字体名，第2个参数是字号。在正常情况下系统里都有 arial 字体，如果没有会使用默认字体，默认字体和用户使用的系统有关。</p>
+<p>用户可以使用 <code>pygame.font.get_fonts()</code> 来获取当前系统所有可用的字体。</p>
+<p>另外还有一种调用方法是使用自己的 TTF 字体：<code>my_font = pygame.font.Font('my_font.ttf', 16)</code></p>
+<p>这个方法的好处是可以把字体文件和游戏一起打包分发，避免玩家计算机上没有这个字体而无法显示的问题。一旦有了 Font 对象，就可以使用 render() 方法来设置文本内容，然后通过 blit() 方法写到屏幕上。</p>
+<pre><code class="language-python">text = font1.render(&quot;坦克大战&quot;, True, (0, 0, 0), (255, 255,255))
+</code></pre>
+<p>render() 方法的第1个参数是写入的文本内容；第2个参数是布尔值，说明是否开启抗锯齿；第3个参数是字体本身的颜色；第4个参数是背景的颜色。如果不想有背景色，也就是让背景透明，可以不加第4个参数。</p>
+<p>例如自己定义一个文字处理函数 show_text(), 其中参数 surface_handle 是 surface 句柄，pos 为文字显示位置，corlor 为文字颜色，font_size 为字体大小，font_bold 为文字是否加粗，font_italic 为文字是否斜体。</p>
+<pre><code class="language-python">def show_text(surface_handle, pos, text, color, font_size = 13, font_bold = False, font_italic = False):
+    # cur_font = pygame.font.SysFont('宋体', font_size)		# 获取系统字体
+    cur_font = pygame.font.Font('simafang.ttf', 30)			 # 获取字体，并设置大小
+    cur_font.set_bold(font_bold)							 # 设置是否加粗
+    cur_font.set_italic(font_italic)						 # 设置是否斜体
+    text_fmt = cur_font.render(text, 1, color)				 # 设置文本内容
+    surface_handle.blit(text_fmt, pos)						 # 绘制文字
+</code></pre>
+<p>在更新窗口内容 <code>pygame.display.update()</code> 之前加入：</p>
+<pre><code class="language-python">text = &quot;坦克大战&quot;
+show_text(screen, (20, 220), text, (255, 0, 0), True)
+text = &quot;坦克位置：（%d, %d）&quot; % (tank_rect.left, tank_rect.top)
+show_text(screen, (20, 420), text, (0, 255, 255), True)
+</code></pre>
+<p>此时会在屏幕的（20，220）处显示红色的“坦克大战”文字，并且在（20，420）显示现在坦克所处位置的座标，移动坦克，位置座标文字随之改变。</p>
+<p>完整代码如下：</p>
+<pre><code class="language-python">import pygame
+
+
+def show_text(surface_handle, pos, text, color, font_size = 20, font_bold = False, font_italic = False):
+    cur_font = pygame.font.SysFont(&quot;华文宋体&quot;, font_size)
+    cur_font.set_bold(font_bold)
+    cur_font.set_italic(font_italic)
+    text_message = cur_font.render(text, 1, color)
+    surface_handle.blit(text_message, pos)
+
+
+def tank_play():
+    pygame.init()
+    tank_image = pygame.image.load(r&quot;../images/tank.png&quot;)
+    tank_rect = tank_image.get_rect()
+    back_image = pygame.image.load(r&quot;../images/background2.jpg&quot;)
+    back_rect = back_image.get_rect()
+    screen = pygame.display.set_mode(back_rect.size)
+    pygame.display.set_caption(&quot;用户方向键控制坦克移动&quot;)
+    tank_rect.center = back_rect.center
+    offset = 2                            
+    fps_clock = pygame.time.Clock()
+    while True:
+        fps_clock.tick(60)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+        keys_pressed = pygame.key.get_pressed()
+        if keys_pressed[pygame.K_RIGHT]:
+            tank_rect.x += offset
+        if keys_pressed[pygame.K_LEFT]:
+            tank_rect.x -= offset
+        if keys_pressed[pygame.K_UP]:
+            tank_rect.y -= offset
+        if keys_pressed[pygame.K_DOWN]:
+            tank_rect.y += offset
+        tank_rect.clamp_ip(back_rect)
+        screen.blit(back_image, back_rect)
+        screen.blit(tank_image, tank_rect)
+
+        text = &quot;坦克大战&quot;
+        show_text(screen, (20, 220), text, (255, 0, 0))
+        text = f&quot;坦克位置：（{tank_rect.x}，{tank_rect.y}）&quot;
+        show_text(screen, (20, 250), text, (0, 255, 255))
+        pygame.display.update()
+
+
+if __name__ == '__main__':
+    tank_play()
+    
+</code></pre>
+<p>程序运行结果如下所示：</p>
+<img src="https://gitee.com/liquancai/blog_images/raw/master/img/Snipaste_2020-07-04_19-11-38.png" style="zoom:50%;" />
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#pygame-%E7%9A%84%E5%AD%97%E4%BD%93%E4%BD%BF%E7%94%A8">pygame 的字体使用</a></li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://liquancai-code.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://liquancai-code.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+  
+    
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: 'c9a70230ebc06688864d',
+    clientSecret: 'fafe75a22c04457e6512243145be2764632f161d',
+    repo: 'liquancai-code.github.io',
+    owner: 'liquancai-code',
+    admin: ['liquancai-code'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+    
+  
+</body>
+
+</html>
