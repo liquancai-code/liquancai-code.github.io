@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liquancai-code.github.io</id>
     <title>li_quancai</title>
-    <updated>2020-07-04T14:36:49.748Z</updated>
+    <updated>2020-07-06T10:58:12.609Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liquancai-code.github.io"/>
     <link rel="self" href="https://liquancai-code.github.io/atom.xml"/>
@@ -10,6 +10,132 @@
     <logo>https://liquancai-code.github.io/images/avatar.png</logo>
     <icon>https://liquancai-code.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, li_quancai</rights>
+    <entry>
+        <title type="html"><![CDATA[pygame的精灵使用]]></title>
+        <id>https://liquancai-code.github.io/post/pygame-de-jing-ling-shi-yong/</id>
+        <link href="https://liquancai-code.github.io/post/pygame-de-jing-ling-shi-yong/">
+        </link>
+        <updated>2020-07-06T10:37:24.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="pygame-的精灵使用">pygame 的精灵使用</h1>
+<p>pygame.sprite.Sprite 是 pygame 中用来实现精灵的一个类，在使用时并不需要对它实例化，只需要继承它，然后按需写出自己的类，因此非常简单、使用。</p>
+<hr>
+<h2 id="1-精灵">1. 精灵</h2>
+<p>精灵可以被认为是一个个小图片（帧）序列（例如人物行走），它可以在屏幕上移动，并且可以与其他图形对象交互。精灵图像可以是用 pygame 绘制形状函数绘制的形状，也可以是图像文件。</p>
+<hr>
+<h2 id="2-sprite-类的成员">2. Sprite 类的成员</h2>
+<p>pygame.sprite.Sprite 用来实现精灵类，Sprite 的数据成员和函数方法主要如下。</p>
+<ol>
+<li>
+<p><strong>self.image</strong></p>
+<p>其负责显示什么图形。例如 <code>self.image = pygame.Surface([x, y])</code> 说明该精灵是一个 x * y 大小的矩形，<code>self.image = pygame.image.load(filename)</code> 说明该精灵显示 filename 这个图片文件。</p>
+<p><code>self.image.fill([color])</code> 负责对 self.image 进行着色，例如：</p>
+<pre><code class="language-python">self.image = pygame.Surface([x, y])
+self.image.fill((255, 0, 0))		# 对 x * y 大小的矩形填充红
+</code></pre>
+</li>
+<li>
+<p><strong>self.rect</strong></p>
+<p>其负责在哪里显示。一般来说，先用 <code>self.rect = self.image.get_rect()</code> 来获取 image 的矩形区域，然后给 self.rect 设定显示的位置，一般用 self.rect.topleft 来确定左上角的位置，当然也可以 self.rect.topright、 self.rect.bottomleft 和 self.rect.bottomright 来确定其它几个角的位置。</p>
+<p>另外，self.rect.top 、self.rect.bottom 、self.rect.left 、self.rect.right 分别表示上、下、左、右。</p>
+</li>
+<li>
+<p><strong>self.update()</strong></p>
+<p>其负责使精灵行为生效。</p>
+</li>
+<li>
+<p><strong>Sprite.add()</strong></p>
+<p>添加精灵到 groups 中。</p>
+</li>
+<li>
+<p><strong>Sprite.remove()</strong></p>
+<p>从精灵组 groups 中删除。</p>
+</li>
+<li>
+<p><strong>Sprite.kill()</strong></p>
+<p>从精灵组 groups 中删除全部精灵。</p>
+</li>
+<li>
+<p><strong>Sprite.alive()</strong></p>
+<p>判断某个精灵是否属于精灵组 groups 。</p>
+</li>
+</ol>
+<hr>
+<h2 id="3-建立精灵">3. 建立精灵</h2>
+<p>所有精灵在建立时都是从 pygame.sprite.Sprite 中继承的，建立精灵要设计自己的精灵类。</p>
+<p>例——建立 Tank 精灵，代码如下：</p>
+<pre><code class="language-python">import pygame
+
+
+class Tank(pygame.sprite.Sprite):
+    def __init__(self, image, initial_position):
+        self.image = pygame.image.load(image)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = initial_position
+        
+        
+if __name__ = '__main__':
+    pygame.init()
+    screen = pygame.display.set_mode((640, 480))
+    screen.fill((255, 255, 255))
+    filename = &quot;../images/tank.png&quot;
+    init_pos = (150, 100)
+    tank = Tank(filename, init_pos)
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+        screen.blit(tank.image, tank.rect)
+        pygame.display.update()
+</code></pre>
+<p>运行结果如下：</p>
+<img src="https://gitee.com/liquancai/blog_images/raw/master/img/Snipaste_2020-07-05_18-27-58.png" style="zoom:50%;" />
+<hr>
+<h2 id="4-建立精灵组">4. 建立精灵组</h2>
+<p>当程序中有大量实体的时候，操纵这些实体将会是一件相当麻烦的事，而精灵组可以作为一个实体精灵容器将这些精灵放在一起统一管理。</p>
+<p>pygame 使用精灵组来管理精灵的绘制和更新，精灵组是一个简单的容器。</p>
+<p>使用 <code>pygame.sprite.Group()</code> 可以创建一个精灵组：</p>
+<pre><code class="language-python">group = pygame.sprite.Group()
+group.add(sprite_one)
+</code></pre>
+<p>精灵组也有 update() 和 draw() 函数：</p>
+<pre><code class="language-python">group.update()
+group.draw()
+</code></pre>
+<p>pygame 还提供了精灵与精灵之间的冲突检测、精灵和组之间的冲突检测。</p>
+<hr>
+<h2 id="5-精灵与精灵之间的碰撞检测">5. 精灵与精灵之间的碰撞检测</h2>
+<h3 id="1-两个精灵之间的矩形检测">1. 两个精灵之间的矩形检测</h3>
+<p>在只有两个精灵的时候可以使用 <code>pygame.sprite.collide_rect()</code> 函数进行一对一的冲突检测。这个函数需要传递两个精灵，并且两个精灵都需要继承自 pygame.sprite.Sprite 。</p>
+<p>这里举个例子：</p>
+<pre><code class="language-python">sprite1 = Tank(&quot;sprite1.png&quot;, (150, 100))		# Tank 是上面3中例子创建的类。
+sprite2 = Tank(&quot;sprite2.png&quot;, (120, 80))
+result = pygame.sprite.collide_rect(sprite1, sprite2)
+if result:
+    print(&quot;精灵碰撞了！&quot;)
+</code></pre>
+<h3 id="2-两个精灵之间的圆检测">2. 两个精灵之间的圆检测</h3>
+<p>矩形冲突检测并不适合所有形状的精灵，因此在 pygame 中还提供了圆形冲突检测。<code>pygame.sprite.collide_circle()</code> 函数是基于每个精灵的半径值来检测的，用户可以自己指定精灵半径，或者让函数计算精灵半径。</p>
+<pre><code class="language-python">result = pygame.sprite.collide_circle(sprite1, sprite2)
+if result:
+    print(&quot;精灵碰撞了！&quot;)
+</code></pre>
+<h3 id="3-两个精灵之间的像素遮罩检测">3. 两个精灵之间的像素遮罩检测</h3>
+<p>如果矩形检测和圆形检测都不能满足要求，pygame 还为用户提供了一个更加精确的检测——<code>pygame.sprite.collide_mask()</code> 。</p>
+<p>这个函数接受精灵作为参数，返回值是一个 bool 变量。</p>
+<pre><code class="language-python">if pygame.sprite.collide_mask(sprite1, sprite2):
+	print(&quot;精灵碰撞了！&quot;)
+</code></pre>
+<h3 id="4-精灵和精灵组之间的矩形冲突检测">4. 精灵和精灵组之间的矩形冲突检测</h3>
+<p>在调用 <code>pygame.sprite.spritecollide(sprite, sprite_group, bool)</code> 函数的时候，一个组中所有的精灵都会逐个地对另外一个单个精灵进行冲突检测，发生冲突的精灵会作为一个列表返回。</p>
+<p>这个函数的第1个参数是单个精灵，第2个参数是精灵组，第3个参数是一个 bool 值，最后这个参数起了很大的作用，当为 True 的时候会删除组中所有冲突的精灵，当为 False 的时候不会删除冲突的精灵。</p>
+<pre><code class="language-python">list_collide = pygame.sprite.spritecollide(sprite, sprite_group, False)
+</code></pre>
+<p>另外，这个函数还有一个变体——<code>pygame.sprite.spritecollideany()</code> ，这个函数在判断精灵组和单个精灵冲突的时候会返回一个 bool 值。</p>
+<h3 id="5-精灵组之间的矩形冲突检测">5. 精灵组之间的矩形冲突检测</h3>
+<p>利用 <code>pygame.sprite.groupcollide()</code> 函数可以检测两个组之间的冲突，它返回一个字典（键值对）。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[pygame 的声音播放]]></title>
         <id>https://liquancai-code.github.io/post/pygame-de-sheng-yin-bo-fang/</id>
